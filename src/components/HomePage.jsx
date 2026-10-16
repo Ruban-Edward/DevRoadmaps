@@ -82,7 +82,7 @@ export default function HomePage({ stats, overall }) {
           );
         })}
       </section>
-      <footer className="home-footer"><span>Keep learning in small, useful steps.</span><span>LEARN · RECALL · PRACTISE</span></footer>
+      <footer className="home-footer"><span>Keep learning in small, useful steps.</span><span className="home-author">Created by <strong>Ruban Edward</strong></span><span>LEARN · RECALL · PRACTISE</span></footer>
     </div>
   );
 }

@@ -29,6 +29,10 @@ Topic fields are documented at the top of `src/data/roadmap.js`. Topic `id`s mus
 
 Pushing to `main` builds and deploys to GitHub Pages via `.github/workflows/deploy.yml`. `dist/` and `node_modules/` are built in CI and are not committed.
 
+## Author
+
+Created by **Ruban Edward**.
+
 ## Licence
 
 Code: see `LICENSE`. Content: see `CONTENT-LICENSE.md`.

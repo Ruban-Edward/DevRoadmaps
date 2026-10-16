@@ -110,6 +110,7 @@ export default function App() {
           <div><span><em>{scope.label}</em> {scope.done} / {scope.total} topics</span><b>{pct}%</b></div>
           <i><u style={{ width: pct + "%" }} /></i>
         </div>
+        <span className="loader" key={currentId} aria-hidden="true" />
       </header>
       <div className="body">
         {!onHome && (
@@ -120,10 +121,12 @@ export default function App() {
           </>
         )}
         <main ref={mainRef} className={onHome ? "home-main" : ""}>
-          {onHome ? <HomePage stats={stats} overall={overall} /> : (
-            <TopicPage topic={topic} track={trackMeta} section={topic.section} sectionIndex={topic.sectionIndex} done={!!done[topic.id]}
-              onToggle={toggle} prev={trackTopics[trackIndex - 1]} next={trackTopics[trackIndex + 1]} onGo={go} />
-          )}
+          <div className="page" key={currentId}>
+            {onHome ? <HomePage stats={stats} overall={overall} /> : (
+              <TopicPage topic={topic} track={trackMeta} section={topic.section} sectionIndex={topic.sectionIndex} done={!!done[topic.id]}
+                onToggle={toggle} prev={trackTopics[trackIndex - 1]} next={trackTopics[trackIndex + 1]} onGo={go} />
+            )}
+          </div>
         </main>
       </div>
     </div>
