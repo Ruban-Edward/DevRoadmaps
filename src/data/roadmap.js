@@ -129,9 +129,9 @@ text.replace(old, new)`,
 print(s.upper())
 print(s.strip().title())
 print(s.replace("o", "0"))`,
-        output: `" HELLO WORLD "
+        output: ` HELLO WORLD 
 Hello World
-" hell0 w0rld "`,
+ hell0 w0rld `,
         when: "Cleaning user input and fixing text.",
         mistakes: ["Strings are immutable; methods return a new string","Forgetting to store the result: s.upper() alone changes nothing"],
       },
@@ -154,7 +154,8 @@ print("one two".split())`,
         example: `name, mark = "Asha", 92.456
 print(f"{name} scored {mark:.1f}")
 print("{} scored {}".format(name, mark))`,
-        output: `Asha scored 92.5`,
+        output: `Asha scored 92.5
+Asha scored 92.456`,
         when: "Building readable messages with variables.",
         mistakes: ["Forgetting the f before the quote","Mixing up the order of values in .format()"],
       },
@@ -993,7 +994,8 @@ class B(A):
     def hi(self):
         super().hi(); print("B")
 B().hi()`,
-        output: `A then B`,
+        output: `A
+B`,
         when: "Extending or changing what a parent method does.",
         mistakes: ["Using different parameters than the parent method","Forgetting super().__init__()"],
       },
@@ -1214,7 +1216,6 @@ with open("d.json") as f: print(json.load(f))`,
   {
     id: "sample-program-student-report-manager",
     title: "Sample Program: Student Report Manager",
-    video: "",
     topics: [
       {
         id: "goal", title: "Goal", level: "Beginner",

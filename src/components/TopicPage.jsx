@@ -7,19 +7,20 @@ const videoUrl = (id, at) => `https://youtu.be/${id}` + (at ? `?t=${toSeconds(at
 const gfgUrl = (t) => t.gfg || "https://www.google.com/search?q=" + encodeURIComponent("site:geeksforgeeks.org python " + t.title);
 const plainText = (text) => text.replace(/`/g, "");
 
-export default function TopicPage({ topic, section, sectionIndex, done, onToggle, prev, next, onGo }) {
+export default function TopicPage({ topic, track, section, sectionIndex, done, onToggle, prev, next, onGo }) {
   const referenceUrl = section.referenceUrl || gfgUrl(topic);
   const referenceLabel = section.referenceLabel || "GeeksforGeeks reference";
-  const isGit = section.track === "git-github";
   return (
     <article className="topic">
-      <nav className="crumbs">
-        <span>Roadmap</span><ChevronRight size={13} /><span>{section.title}</span><ChevronRight size={13} /><b>{topic.title}</b>
+      <nav className="crumbs" aria-label="Breadcrumb">
+        <button onClick={() => onGo("home")}>All paths</button><ChevronRight size={13} />
+        <button onClick={() => onGo(track.start)}>{track.name}</button><ChevronRight size={13} />
+        <span>{section.title}</span><ChevronRight size={13} /><b aria-current="page">{topic.title}</b>
       </nav>
       <div className="eyebrow">{String(sectionIndex + 1).padStart(2, "0")} / {section.title.toUpperCase()}</div>
       <div className="title-row">
         <h1>{topic.title}</h1>
-        <button className={"mark" + (done ? " on" : "")} onClick={() => onToggle(topic.id)}>
+        <button className={"mark" + (done ? " on" : "")} onClick={() => onToggle(topic.id)} aria-pressed={done}>
           {done ? <CheckCircle2 size={16} /> : <Circle size={16} />} {done ? "Completed" : "Mark complete"}
         </button>
       </div>
@@ -38,10 +39,10 @@ export default function TopicPage({ topic, section, sectionIndex, done, onToggle
       </div>
       <hr />
       <div className="grid2">
-        <Card icon={Code2} tone="purple" title="Syntax" sub="The general pattern">
+        <Card icon={Code2} tone="purple" title="Syntax" sub="The general pattern" action={<CopyButton text={topic.syntax} label="Copy" />}>
           <pre className="code">{topic.syntax}</pre>
         </Card>
-        <Card icon={Play} tone="blue" title="Example" sub={isGit ? "Command-line example" : "Runnable Python code"} action={<CopyButton text={topic.example} />}>
+        <Card icon={Play} tone="blue" title="Example" sub={track.exampleSub} action={<CopyButton text={topic.example} />}>
           <pre className="code">{topic.example}</pre>
           {topic.output && (<><div className="label">EXPECTED OUTPUT</div><pre className="code out">{topic.output}</pre></>)}
         </Card>
@@ -51,7 +52,7 @@ export default function TopicPage({ topic, section, sectionIndex, done, onToggle
       </Card>
       <Card icon={ListChecks} tone="orange" title="Common mistakes" sub="Things worth remembering">
         <ul className="mist">
-          {topic.mistakes.map((m) => (<li key={m}><span className="bang"><AlertCircle size={13} /></span>{plainText(m)}</li>))}
+          {topic.mistakes.map((m, i) => (<li key={i}><span className="bang"><AlertCircle size={13} /></span>{plainText(m)}</li>))}
         </ul>
       </Card>
       <div className="pager">
