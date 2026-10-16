@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Search, BookOpen, Circle, CheckCircle2, ChevronDown, ChevronRight } from "lucide-react";
 
-export default function Sidebar({ roadmap, currentId, done, onSelect, query, setQuery, total, searchRef, open }) {
+export default function Sidebar({ roadmap, track, currentId, done, onSelect, query, setQuery, total, searchRef, open }) {
   const [collapsed, setCollapsed] = useState({});
   const q = query.trim().toLowerCase();
   const sections = roadmap
-    .map((s, i) => ({ s, i, topics: s.topics.filter((t) => !q || (t.title + " " + t.summary).toLowerCase().includes(q)) }))
+    .map((s, i) => ({ s, i, topics: s.topics.filter((t) => !q || (t.title + " " + t.summary + " " + (t.syntax || "")).toLowerCase().includes(q)) }))
     .filter((x) => x.topics.length);
   const isOpen = (s) => (q ? true : collapsed[s.id] === undefined ? s.topics.some((t) => t.id === currentId) : !collapsed[s.id]);
   return (
     <aside className={"side" + (open ? " open" : "")}>
       <div className="eyebrow">YOUR LEARNING PATH</div>
-      <h2>Python, step by step.</h2>
+      <h2>{track === "git-github" ? "Git & GitHub, step by step." : track === "docker" ? "Docker, step by step." : track === "linux" ? "Linux, step by step." : "Python, step by step."}</h2>
       <p className="sub">Short notes for the concepts you want to remember.</p>
       <label className="search">
         <Search size={15} />

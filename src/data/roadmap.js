@@ -1,5 +1,5 @@
 // =====================================================================
-// ROADMAP DATA - the only file you need to edit to add content.
+// PYTHON ROADMAP DATA. Git & GitHub content lives in gitRoadmap.js.
 //
 // Add a topic: copy any topic object inside a section's "topics" list.
 //   id        unique, lowercase, no spaces
@@ -9,7 +9,11 @@
 //   gfg       exact GeeksforGeeks URL (optional; otherwise a GfG search is used)
 // Add a section: copy a whole { id, title, video, topics: [...] } block.
 // =====================================================================
-export const roadmap = [
+import { gitRoadmap } from "./gitRoadmap.js";
+import { dockerRoadmap } from "./dockerRoadmap.js";
+import { linuxRoadmap } from "./linuxRoadmap.js";
+
+const pythonRoadmap = [
   {
     id: "python-basics-variables-strings-operators",
     title: "Python Basics, Variables, Strings & Operators",
@@ -1303,8 +1307,10 @@ if __name__ == "__main__":
 # 3. Add a Teacher class that inherits from a Person class
 # 4. Log errors to a text file using append mode`,
         when: "Practising by extending working code.",
-        mistakes: ["Changing too much at once","Not testing after each change"],
-      },
-    ],
-  },
+                                mistakes: ["Changing too much at once","Not testing after each change"],
+                        },
+                ],
+        },
 ];
+
+export const roadmap = [...pythonRoadmap, ...gitRoadmap, ...dockerRoadmap, ...linuxRoadmap];

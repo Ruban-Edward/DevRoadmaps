@@ -62,8 +62,8 @@ h1{margin:0;font-size:2.2rem;letter-spacing:-.02em;line-height:1.15}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:.84rem}.meta a{display:inline-flex;align-items:center;gap:6px}
 .badge{font:.72rem var(--mono);border:1px solid var(--bd);border-radius:6px;padding:4px 9px;background:var(--card)}.badge.extra{color:#34d399;border-color:#1f7a57}
 hr{border:0;border-top:1px solid var(--bd);margin:22px 0}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;align-items:start}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:14px}.grid2 .card{margin:0}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-bottom:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:14px}.grid2 .card{margin:0;min-width:0}
 .card-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}.card-t{flex:1}
 .card-t h3{margin:0;font-size:.95rem}.card-t small{color:var(--mu);font-size:.72rem}
 .ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center}

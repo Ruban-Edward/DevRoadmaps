@@ -17,7 +17,9 @@ const tracks = [
     description: "Version control, collaboration, branches, and shipping your work.",
     icon: GitBranch,
     tone: "coral",
-    status: "Coming later",
+    status: "Available now",
+    href: "#git-version",
+    active: true,
   },
   {
     id: "docker",
@@ -25,7 +27,9 @@ const tracks = [
     description: "Package applications and understand the tools behind containers.",
     icon: Container,
     tone: "sky",
-    status: "Coming later",
+    status: "Available now",
+    href: "#docker-what-is",
+    active: true,
   },
   {
     id: "linux",
@@ -33,7 +37,9 @@ const tracks = [
     description: "Get comfortable with the command line, files, and everyday workflows.",
     icon: Terminal,
     tone: "gold",
-    status: "Coming later",
+    status: "Available now",
+    href: "#linux-terminal",
+    active: true,
   },
   {
     id: "react",
@@ -87,10 +93,10 @@ export default function HomePage({ totalTopics, completedTopics }) {
         </div>
       </section>
 
-      <section className="home-progress" aria-label="Python roadmap progress">
+      <section className="home-progress" aria-label="Learning progress">
         <div className="progress-copy">
           <BookOpen size={17} />
-          <span><strong>Your Python progress</strong><small>{completedTopics} of {totalTopics} topics complete</small></span>
+          <span><strong>Your learning progress</strong><small>{completedTopics} of {totalTopics} topics complete</small></span>
         </div>
         <div className="home-progress-track" aria-hidden="true"><i style={{ width: `${progress}%` }} /></div>
         <strong className="progress-percent">{progress}%</strong>

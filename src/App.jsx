@@ -5,7 +5,15 @@ import Sidebar from "./components/Sidebar.jsx";
 import TopicPage from "./components/TopicPage.jsx";
 import HomePage from "./components/HomePage.jsx";
 
-const flat = roadmap.flatMap((section, sectionIndex) => section.topics.map((t) => ({ ...t, section, sectionIndex })));
+const trackRoadmaps = {
+  python: roadmap.filter((section) => !section.track || section.track === "python"),
+  "git-github": roadmap.filter((section) => section.track === "git-github"),
+  docker: roadmap.filter((section) => section.track === "docker"),
+  linux: roadmap.filter((section) => section.track === "linux"),
+};
+const flat = Object.entries(trackRoadmaps).flatMap(([track, sections]) =>
+  sections.flatMap((section, sectionIndex) => section.topics.map((t) => ({ ...t, section, sectionIndex, track }))),
+);
 const KEY = "python-roadmap-progress";
 const fromHash = () => { const id = decodeURIComponent(location.hash.slice(1)); return flat.some((t) => t.id === id) ? id : "home"; };
 
@@ -31,6 +39,11 @@ export default function App() {
   const toggle = (id) => setDone((d) => ({ ...d, [id]: !d[id] }));
   const idx = flat.findIndex((t) => t.id === currentId);
   const topic = flat[idx];
+  const currentTrack = topic?.track || "python";
+  const currentRoadmap = trackRoadmaps[currentTrack];
+  const trackTopics = flat.filter((t) => t.track === currentTrack);
+  const trackIndex = trackTopics.findIndex((t) => t.id === currentId);
+  const trackTotal = trackTopics.length;
   const count = useMemo(() => flat.filter((t) => done[t.id]).length, [done]);
   const pct = Math.round((count / flat.length) * 100);
 
@@ -46,12 +59,12 @@ export default function App() {
         </div>
       </header>
       <div className="body">
-        {currentId !== "home" && <Sidebar roadmap={roadmap} currentId={currentId} done={done} onSelect={go} query={query} setQuery={setQuery}
-          total={flat.length} searchRef={searchRef} open={menu} />}
+        {currentId !== "home" && <Sidebar roadmap={currentRoadmap} track={currentTrack} currentId={currentId} done={done} onSelect={go} query={query} setQuery={setQuery}
+          total={trackTotal} searchRef={searchRef} open={menu} />}
         <main ref={mainRef} className={currentId === "home" ? "home-main" : ""}>
           {currentId === "home" ? <HomePage totalTopics={flat.length} completedTopics={count} /> : (
             <TopicPage topic={topic} section={topic.section} sectionIndex={topic.sectionIndex} done={!!done[topic.id]}
-              onToggle={toggle} prev={flat[idx - 1]} next={flat[idx + 1]} onGo={go} />
+              onToggle={toggle} prev={trackTopics[trackIndex - 1]} next={trackTopics[trackIndex + 1]} onGo={go} />
           )}
         </main>
       </div>
